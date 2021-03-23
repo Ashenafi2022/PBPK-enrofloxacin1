@@ -1,6 +1,6 @@
 # PBPK-enrofloxacin1
 ## Barekely Madona codes for seven caompartments BPPK model for enrofloxacin in calves
-### 7 compartments: liver, kidney, lungs, muscle, fat, plasma and the rest of the body
+### 8 compartments: liver, kidney, lungs, muscle, fat, plasma, intestine and the rest of the body
 #### Two submodels: parent drug/enrofloxacin (seven compartments) and metabolite/ciprofloxacin (muscle and fat excluded)
 
 METHOD RK4
