@@ -1,6 +1,6 @@
 # PBPK-enrofloxacin1
 ## Barekely Madona codes for seven caompartments BPPK model for enrofloxacin in calves
-### 8 compartments: liver, kidney, lungs, muscle, fat, plasma, intestine and the rest of the body
+### 7 compartments: liver, kidney, lungs, muscle, fat, intestine and the rest of the body
 #### Two submodels: parent drug/enrofloxacin (seven compartments) and metabolite/ciprofloxacin (muscle and fat excluded)
 
 METHOD RK4
@@ -11,54 +11,62 @@ DT = 0.001
 DTOUT = 0.1
 
 ; Physiological parameters
-; Blood flow rates
-QCC = 9.09 ; cardiac output (L/h/kg) (Lin et al., 2020; Table 16)
-
-;Fraction of blood flow to organs (unitless, percent)
-QLC = 0.30 ; Fraction of blood flow to the liver (Lin et al., 2020; Table 24; Hepatic artery = 0.40 and Portal vein = 0.28)
-QKC = 0.10 ; Fraction of blood flow to the kidneys (Lin et al., 2020; Table 24)
-QFC = 0.08 ; Fraction of blood flow to the fat (Lin et al., 2016 SS Table 2, double check if it is not of calves)
-QMC = 0.18 ; Fraction of blood flow to the muscle (Lin et al., 2016 SS Table 2, double check if it is not of calves)
-QLuC = 0.46 ; Fraction of blood flow to the lungs (Lin et al., 2020; Table 24);
-QGC = 0.11 ; Fraction of blood flow to the GI tract (Lin et al., 2020; Table 24)
-QRC = 0.23 ; Fraction of blood flow to the rest of the body (1-QLC-QKC-QFC-QMC-QGC), QLuC is included(?)
 
 ; Tissue volumes
-BW = 118 ; Body weight (kg) (median of 35 calves in FQ AMR cattle study)
+BW = 118 ; Body weight (kg) (median of 35 calves in FQ AMR cattle study, ISU)
 ;VAC = 0.0104 ; Fractional arterial blood (Lin et al., 2016 SS Table 2, update by original references); plasma?
 ;VVC = 0.0296 ; Fractional venous blood (Lin et al., 2016 SS Table 2, update by original references)
+VbloodC = 0.0691 ; Fractional Blood volume, Is VbloodC different from VAC/VVC? IS it plasma? (Lin et al., 2020; Table 7)
 VLC = 0.0287 ; Fractional liver tissue (Lin et al., 2020; Table 7)
 VKC = 0.0039 ; Fractional kidney tissue (Lin et al., 2020; Table 7)
 VFC = 0.0695 ; Fractional fat tissue (Lin et al., 2020; Table 7)
 VMC = 0.339 ; Fractional muscle tissue (Lin et al., 2020; Table 7)
-VbloodC = 0.0691 ; Blood volume, fraction of BW #??? is VbloodC different from VAC/VVC? IS it plasma? (Lin et al., 2020; Table 7)
 VLuC = 0.0123 ; Fractional lung tissue in calves (Lin et al., 2020; Table 7)
-VGC = 0.0547 ; Fractional GI tract volumes in calves (Lin et al., 2020; Table 7; stomachs = 2.22, and intestines = 2.39), Intestine alone or the whole GT tract?
-VRC = 0.423 ; Fractional rest of body (1-VLC-VKC-VFC-VMC-VLuC-VGC)
+VIC = 0.0239 ; Fractional intestine volumes in calves (Lin et al., 2020; Table 7; the whole intestine or LI alone?)
+VRC = 0.4536 ; Fractional rest of body (1-VLC-VKC-VFC-VMC-VLuC-VIC-VbloodC)
+
+; Blood flow rates
+QCC = 9.09 ; cardiac output (L/h/kg) (Lin et al., 2020; Table 16)
+
+;Fraction of blood flow to organs (unitless, percent)
+;QLC = 0.30 ; Fraction of blood flow to the liver (Lin et al., 2020; Table 24; Hepatic artery = 0.04 and Portal vein = 0.28)
+QLhC = 0.04 ; Fraction of blood flow to the liver hepatic artery (Lin et al., 2020; Table 24)
+QLpC = 0.28 ; Fraction of blood flow to the liver portal vein (from intestine, Lin et al., 2020; Table 24)
+QKC = 0.10 ; Fraction of blood flow to the kidneys (Lin et al., 2020; Table 24)
+QFC = 0.08 ; Fraction of blood flow to the fat (Lin et al., 2016 SS Table 2, search for calves)
+QMC = 0.18 ; Fraction of blood flow to the muscle (Lin et al., 2016 SS Table 2, search for calves)
+QLuC = 0.46 ; Fraction of blood flow to the lungs (Lin et al., 2020; Table 24);
+QIC = 0.11 ; Fraction of blood flow to the GI tract (Lin et al., 2020; Table 24, search for intestines alone)
+QRC = 0.21 ; Fraction of blood flow to the rest of the body (1-QLhC-QLpC-QKC-QFC-QMC-QGC)
 
 ; Mass Transer parameters (Chemical-specific parameters)
 ; partition coefficients
 ; Parent drug, enrofloxacin
-PL = 4.3 ; Liver:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PK = 5.5 ; Kidney:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PF = 0.53 ; Fat:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PM = 0.1.09 ; Muscle:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PLu = 4.3 ; Lung:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PG = ? ; GI tract: plasma
-PR = 1.5; Rest of body:plasma (Lin et al., 2016 SS Table 4, update by original references)
+PL = 4.3 ; Liver:plasma PC (Lin et al., 2016 SS Table 4)
+PK = 5.5 ; Kidney:plasma PC (Lin et al., 2016 SS Table 4)
+PF = 0.53 ; Fat:plasma PC (Lin et al., 2016 SS Table 4)
+PM = 1.09 ; Muscle:plasma PC (Lin et al., 2016 SS Table 4)
+PLu = 4.3 ; Lung:plasma PC (Lin et al., 2016 SS Table 4)
+PI = ? ; Intestine:plasma
+PR = 1.5; Rest of body:plasma (Lin et al., 2016 SS Table 4)
 
 ; main metabolite, ciprofloxacin
-PLm = 4.3 ; Liver:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PKm = 5.5 ; Kidney:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PFm = 0.53 ; Fat:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PMm = 1.09 ; Muscle:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PLum = 4.3 ; Lung:plasma PC (Lin et al., 2016 SS Table 4, update by original references)
-PGm = ? ; GI tract: plasma
-PRm = 1.5 Rest of body:plasma  ; (Lin et al., 2016 SS Table 4, update by original references)
-KmCm = 0.06 ; Hepatic metabolic rate [/(h*kg)] (Lin et al., 2016 SS Table 4, update by original references)
-;Fraction of enro metabolized to cipro (unitless), Frac = 0.55 (Lin et al., 2016 SS Table 4, update by original references)
-;Parent drug  PB = 0.46 (Lin et al., 2016 SS Table 4, update by original references)
-;Main metabolite PB1 = 0.19 (Lin et al., 2016 SS Table 4, update by original references)
+PL1 = 4.3 ; Liver:plasma PC (Lin et al., 2016 SS Table 4)
+PK1 = 5.5 ; Kidney:plasma PC (Lin et al., 2016 SS Table 4)
+PF1 = 0.53 ; Fat:plasma PC (Lin et al., 2016 SS Table 4)
+PM1 = 1.09 ; Muscle:plasma PC (Lin et al., 2016 SS Table 4)
+PLu1 = 4.3 ; Lung:plasma PC (Lin et al., 2016 SS Table 4)
+PI1 = ? ; Intestine:plasma
+PR1 = 1.5 Rest of body:plasma  ; (Lin et al., 2016 SS Table 4)
+
+KmC = 0.06 ; Hepatic metabolic rate [/(h*kg)] (Lin et al., 2016 SS Table 4)
+
+Frac = 0.55 ; Fraction of ENR metabolized to CIP (unitless),  (Lin et al., 2016 SS Table 4)
+PB = 0.46 ; ENR percentage of plasma protein binding (unitless)  (Lin et al., 2016 SS Table 4)
+PB1 = 0.19 ; CIP percentage of plasma protein binding (unitless) (Lin et al., 2016 SS Table 4s)
+Kfeces = NA ; Fecal elimination rate constant (/h) (Lin et al., 2016 SS Table 4)
+KurineC = 0.15 ; ENR urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4)
+Kurine1C = 1.99 ; ENR urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4)
 
 ; SC infusion rate constants
 Timesc = 0.00 ; SC injection/infusion (h)
@@ -72,20 +80,18 @@ KfecesC = ? ; Enro L/h/kg (Lin et al., 2016 SS Table 4, update by original refer
 KfecesCm = ? ; cipro L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
 
 ; Parameters for exposure scenario
-PDOSEscL = 7.5 ; (mg/kg) Low dose scenario (PDOSEscL/low dose=7.5 and PDOSEscH/High dose =12.5?)
-PDOSEscH = 12.5 ; (mg/kg) High dose scenario
+PDOSEscLd = 7.5 ; (mg/kg) Low dose scenario 
+PDOSEscHd = 12.5 ; (mg/kg) High dose scenario
 
 ; Cardiac output and blood flows to tissues (L/h)
 QC = QCC*BW ; Cardiac output
 QL = QLC*QC ; Liver
 QK = QKC*QC ; kidney
 QF = QFC*QC ; Fat
-QLu = QLuC#QC ; Lung
+QLu = QLuC*QC ; Lung
 QM = QMC*QC ; Muscle
-QG = QGC*QG ; GI tract
-QR = ? ; Rest of th body
-; QR = 0.626*QC-QL-QK-QLu ; Richly perfused tissues
-; QS = 0.374*QC-QF-QM ; Slowly perfused tissues
+QI = QIC*QC ; Intestine
+QR = QRC*QC ; Rest of body
 
 ; Tissue Volume (L)
 VL = VLC*BW ; Liver
@@ -93,30 +99,41 @@ VK = VKC*BW ; Kidney
 VF = VFC*BW ; Fat
 VM = VMC*BW ; Muscle
 VLu = VLuC*BW ; Lung
-Vblood = VbloodC*BW ; Blood
-VG = VGC*BW ; GI tract
+VI = VIC*BW ; Intestine
 VR = VRC*BW ; Rest of the body
-; VR = 0.142*BW-VL-VK-VLu ; Richly perfused tissues
-; VS = 0.776*BW-VF-VM ; Slowly perfused tissues
 
 ; Dosing
-DOSEscL = PDOSEscL*BW ; (mg) (low doses)
-DOSEscH = PDOSEscH*BW ; (mg) (High doses)
+DOSEscLd = PDOSEscLd*BW ; (mg) (low dose)
+DOSEscHd = PDOSEscHd*BW ; (mg) (High dose)
 
-; Enro sc injection to the venous
-SCR = DOSEsc/Timesc, Low and high doses?
-RSC = SCR*(1.-step(1, Timesc)
-d/dt(Asc) = RSC
-init Asc = 0
+; ENR sc injection to the subcut
+; Low dose scenario
+SCRLd = DOSEscLd/Timesc; Low dose
+RSCLd = SCRLd*(1.-step(1, Timesc)
+d/dt(AscLd) = RSCL
+init AscLd = 0
+
+; High dose scenario
+SCRHd = DOSEscHd/Timesc, High dose
+RSCHd = SCRHd*(1.-step(1, Timesc)
+d/dt(AscHd) = RSCHd
+init AscHd = 0
 
 ; Urinary elimination rate constant
-Kurine = KurineC*BW
+Kurine = KurineC*BW ; ENR
+Kurine1 = Kurine1C*BW ; CIP
 
 ; Fecal elimination rate constant
-Kfeces = KfecesC*BW
+Kfeces = KfecesC*BW ; ENR
+Kfeces1 = Kfeces1C*BW ; CIP
 
-;Enro in blood compartment
-CV = ((QL*CVL+QK*CVK+QF*CVF+QM*CVM+QLu*CVLu+QR*CVR+QS*CVS+Rsc)/QC
+;ENR in blood compartment
+CVHd = ((QL*CVL+QK*CVK+QF*CVF+QM*CVM+QLu*CVLu+QR*CVR+QI*CVI+RscHd)/QC ; High dose
+CVLd = ((QL*CVL+QK*CVK+QF*CVF+QM*CVM+QLu*CVLu+QR*CVR+QI*CVI+RscLd)/QC ; Low dose
+
+;CIP in blood compartment
+CV1Hd = ((QL*CVL+QK*CVK+QF*CVF+QM*CVM+QLu*CVLu+QR*CVR+QI*CVI+RscHd)/QC ; High dose
+CV1Ld = ((QL*CVL+QK*CVK+QLu*CVLu+QR*CVR+QI*CVI+RscLd)/QC ; Low dose
 
 RA= QC*(CV-CA) ; CV-venous blood, CA- arterial blood
 d/dt(AA) = RA
@@ -158,7 +175,7 @@ init AF = 0
 CF = AF/VF
 CVF = AF/(VF*PF)
 
-; ENRO in GI tract compartment
+; ENRO in intestine compartment
 RG = QF*(CA-CVG)
 d/dt(AG) = RG
 init AG = 0
@@ -172,8 +189,13 @@ init AR = 0
 CR = AR/VR
 CVR = AR/(VR*PR)
 
-
-; CIPRO in liver compartment
+; CIProfloxacin
+; CIP in liver compartment
+RL1 = QL*(CA-CVL)
+d/dt(AL1) = RL1
+init AL1 = 0
+CL1 = AL1/VL
+CVL1 = AL/(VL*PL)
 
 ; CIPRO in kidney compartment
 
