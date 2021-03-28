@@ -62,24 +62,19 @@ PR1 = 1.5     Rest of body:plasma  ; (Lin et al., 2016 SS Table 4)
 KmC = 0.06 ; Hepatic metabolic rate [/(h*kg)] (Lin et al., 2016 SS Table 4)
 
 ;Kinetic constants
-Ksc = ? ;          SC absorbation rate constant (/h)
+Ksc = ? ;          SC absorpation rate constant (/h)
 Frac = 0.55 ;      Fraction of ENR metabolized to CIP (unitless),  (Lin et al., 2016 SS Table 4)
 PB = 0.46 ;        ENR percentage of plasma protein binding (unitless)  (Lin et al., 2016 SS Table 4)
 PB1 = 0.19 ;       CIP percentage of plasma protein binding (unitless) (Lin et al., 2016 SS Table 4s)
-Kfeces = NA ;      Fecal elimination rate constant (/h) (Lin et al., 2016 SS Table 4)
 KurineC = 0.15 ;   ENR urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4)
-Kurine1C = 1.99 ;  ENR urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4)
+Kurine1C = 1.99 ;  CIP urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4)
 
 ; SC infusion rate constants
 Timesc = 0.00 ; SC injection/infusion (h)
 
-; Urinary elimination rate constant
-KurineC = 0.15 ; ENR L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
-KurineC1 = 1.99, CIP L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
-
 ; Billiary elimination rate constant??
 KfecesC = ? ; ENR L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
-KfecesCm = ? ; CIP L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
+KfecesC1 = ? ; CIP L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
 
 ; Parameters for exposure scenario
 PDOSEscLd = 7.5 ; (mg/kg) Low dose scenario 
