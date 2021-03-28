@@ -48,7 +48,7 @@ PF = 0.53 ;  Fat:plasma PC (Lin et al., 2016 SS Table 4)
 PM = 1.09 ;  Muscle:plasma PC (Lin et al., 2016 SS Table 4)
 PLu = 4.3 ;  Lung:plasma PC (Lin et al., 2016 SS Table 4)
 PI = ? ;     Intestine:plasma
-PR = 1.5;    Rest of body:plasma (Lin et al., 2016 SS Table 4)
+PR = 1.5;    Rest of body:plasma (Lin et al., 2016 SS Table 4) Is PR affected by the number of compartments? e.g. whether GIT is included or not?
 
 ; main metabolite, ciprofloxacin
 PL1 = 4.3 ;   Liver:plasma PC (Lin et al., 2016 SS Table 4)
@@ -62,19 +62,19 @@ PR1 = 1.5     Rest of body:plasma  ; (Lin et al., 2016 SS Table 4)
 KmC = 0.06 ; Hepatic metabolic rate [/(h*kg)] (Lin et al., 2016 SS Table 4)
 
 ;Kinetic constants
-Ksc = ? ;          SC absorpation rate constant (/h)
+Ksc = 0.06 ;       SC absorpation rate constant (/h) (Lin et al., 2016 SS Table 4)
 Frac = 0.55 ;      Fraction of ENR metabolized to CIP (unitless),  (Lin et al., 2016 SS Table 4)
 PB = 0.46 ;        ENR percentage of plasma protein binding (unitless)  (Lin et al., 2016 SS Table 4)
 PB1 = 0.19 ;       CIP percentage of plasma protein binding (unitless) (Lin et al., 2016 SS Table 4s)
-KurineC = 0.15 ;   ENR urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4)
+KurineC = 0.15 ;   ENR urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4) 
 Kurine1C = 1.99 ;  CIP urinary elimination constant (L/h/kg) (Lin et al., 2016 SS Table 4)
 
 ; SC infusion rate constants
 Timesc = 0.00 ; SC injection/infusion (h)
 
 ; Billiary elimination rate constant??
-KfecesC = ? ; ENR L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
-KfecesC1 = ? ; CIP L/h/kg (Lin et al., 2016 SS Table 4, update by original references)
+KfecesC = 0.01 ; ENR L/h/kg (Lin et al., 2016 SS Table 4, 0.01 if for swine)
+KfecesC1 = ? ; CIP L/h/kg It was not considered for CIP Lin et al 2016 but for unrinary excretion both ENR and CIP were included.
 
 ; Parameters for exposure scenario
 PDOSEscLd = 7.5 ; (mg/kg) Low dose scenario 
