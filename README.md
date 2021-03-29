@@ -234,22 +234,35 @@ Rurine = Kurine*CVK
 d/dt(Aurine) Rurine
 inti Aurine = 0
 
-; Fecal excretion of ENR
-
 ; Urinary excretion of CIP
 Rurine1 = Kurine1*CVK1
 d/dt(Aurine) Rurine
 inti Aurine = 0
 
-; Fecal excretion of CIP
+; For biliary excretion refer to Module 7.3 lecture
+; Fecal/biliary? excretion of ENR (The purpose is to know the concentration of ENR and CIP in the intestinal contents)
+KbC = ? ; ENR bile elimination rate constant 
+Kb = KbC*BW ; ENR elemination rate
+
+; Fecal/biliary excretion of CIP
+KbC1 = ? ; CIP bile elimination rate constant 
+Kb1 = KbC1*BW ; CIP elimination rate
+
+; Bile excretion of ENR
+Rbile = Kb*CVL ; rate of bile excretion of ENR
+Abile = integ(Rbile, 0) ; is it the same/similar with Afeces?
+
+; Bile excretion of CIP
+Rbile1 = Kb1*CVL ; rate of bile excretion of CIP
+Abile1 = integ(Rbile1, 0)
 
 ; Mass balance
 Qbal = QC-QL-QK-QF-QM-QLu-QI-QR ; cardiac out balance (same for ENR and CIP)
-Tmass = AA+AL+AK+AF+AM+ALu+AI+AR+Aurine+Afeces ; ENR amount
+Tmass = AA+AL+AK+AF+AM+ALu+AI+AR+Aurine+Afeces+Abile; ENR amount
 BaLd; = AscLd-Tmass ; Mass balance for LOW dose ; ENR low dose
 BaHd; = AscHd-Tmass ; Mass balance for HIGH dose ; ENR high dose
 
-Tmass1 = AA1+AL1+AK1+AF1+AM1+ALu1+AI1+AR1+Aurine1+Afeces1 ; CIP amount
+Tmass1 = AA1+AL1+AK1+AF1+AM1+ALu1+AI1+AR1+Aurine1+Abile1 ; CIP amount
 BaLd1; = AscLd-Tmass1 ; Mass balance for LOW dose CIP
 BaHd1; = AscHd-Tmass1 ; Mass balance for HIGH dose CIP
 
